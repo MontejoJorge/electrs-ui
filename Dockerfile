@@ -1,5 +1,5 @@
 # Build Stage
-FROM node:16-buster-slim AS umbrel-electrs-builder
+FROM node:16-buster-slim AS electrs-builder
 
 # Install tools
 # RUN apt-get update \
@@ -9,23 +9,24 @@ FROM node:16-buster-slim AS umbrel-electrs-builder
 # Create app directory
 WORKDIR /app
 
-# Copy 'package-lock.json' and 'package.json'
-COPY package-lock.json package.json ./
+# Copy pnpm-lock.yaml' and 'package.json'
+COPY pnpm-lock.yaml package.json pnpm-workspace.yaml ./
 COPY apps ./apps
 
 # Install dependencies
-RUN npm install
+RUN npm install -g pnpm@7
+RUN pnpm install
 
 # Copy project files and folders to the current working directory (i.e. '/app')
 COPY . .
 
-RUN npm run build:frontend
+RUN pnpm run build:frontend
 
 # Final image
-FROM node:16-buster-slim AS umbrel-electrs
+FROM node:16-buster-slim AS electrs
 
 # Copy built code from build stage to '/app' directory
-COPY --from=umbrel-electrs-builder /app /app
+COPY --from=electrs-builder /app /app
 
 # Change directory to '/app' 
 WORKDIR /app
