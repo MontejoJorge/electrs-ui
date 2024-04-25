@@ -28,8 +28,10 @@ FROM node:16-buster-slim AS electrs
 # Copy built code from build stage to '/app' directory
 COPY --from=electrs-builder /app /app
 
+RUN npm install -g pnpm@7
+
 # Change directory to '/app' 
 WORKDIR /app
 
 EXPOSE 3006
-CMD [ "npm", "run", "dev:backend" ]
+CMD [ "pnpm", "run", "dev:backend" ]
