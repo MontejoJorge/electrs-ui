@@ -1,6 +1,6 @@
 {
-   "name": "umbrel-electrs",
-   "version": "1.0.1",
+   "name": "electrs-ui",
+   "version": "0.9",
    "private": true,
    "description": "",
    "author": "",
