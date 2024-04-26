@@ -9,10 +9,8 @@ env:
 
 
 jobs:
-  build:
-
+  build_amd64:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -27,18 +25,38 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v5
         with:
-          images: ghcr.io/${{ env.IMAGE_NAME }}
+          context: .
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/montejojorge/electrs-ui:amd64
+          labels: ${{ steps.meta.outputs.labels }}
+  
+  build_arm64:
+    runs-on: [self-hosted, linux, arm64]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.3.0
+
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           push: true
-          tags: ghcr.io/montejojorge/electrs-ui:latest
+          tags: ghcr.io/montejojorge/electrs-ui:arm64
           labels: ${{ steps.meta.outputs.labels }}
