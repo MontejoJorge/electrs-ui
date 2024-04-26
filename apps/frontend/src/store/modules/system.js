@@ -22,7 +22,7 @@ const mutations = {
 // Functions to get data from the API
 const actions = {
   async getVersion({ commit }) {
-    const data = await API.get(`${process.env.VUE_APP_API_BASE_URL}/v1/system/info`);
+    const data = await API.get(`${process.env.VUE_APP_API_BASE_URL || ""}/v1/system/info`);
     if (data && data.version) {
       let { version } = data;
       if (data.build) {
@@ -32,7 +32,7 @@ const actions = {
     }
   },
   async getApi({ commit }) {
-    const api = await API.get(`${process.env.VUE_APP_API_BASE_URL}/ping`);
+    const api = await API.get(`${process.env.VUE_APP_API_BASE_URL || ""}/ping`);
     commit("setApi", {
       operational: !!(api && api.version),
       version: api && api.version ? api.version : ""
