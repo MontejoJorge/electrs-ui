@@ -21,7 +21,7 @@
       <div class="mt-4 md:col-span-8">
         <!-- RPC Section -->
         <div class="flex flex-col space-y-4 items-center md:items-start">
-          <div class="max-w-xs w-full">
+          <!-- <div class="max-w-xs w-full">
             <div class="rounded-full p-1 bg-slate-200 dark:bg-zinc-700">
               <div class="relative z-0 rounded-full">
                 <button
@@ -42,9 +42,8 @@
                   }"
                   @click="selectTor"
                 >
-                  Tor
+                  SSL
                 </button>
-                <!-- Selection Pill -->
                 <span
                   class="transform transition duration-500 ease-in-out absolute top-0 left-0 h-10 w-1/2 bg-umbrel rounded-full shadow-md"
                   :class="{
@@ -54,7 +53,7 @@
                 ></span>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="w-full">
             <label
               class="mb-1 d-block text-sm font-bold uppercase dark:text-slate-300"
