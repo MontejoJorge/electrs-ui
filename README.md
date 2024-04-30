@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://umbrel.com">
-    <img src="https://i.imgur.com/5u1Eweg.jpg" alt="Logo">
-  </a>
+  <img src="electrs-ui-screenshot.png" alt="Logo">
   <h1 align="center">Electrs web UI</h1>
   <p align="center">
     Forked from: <i>https://github.com/getumbrel/umbrel-electrs</i>
