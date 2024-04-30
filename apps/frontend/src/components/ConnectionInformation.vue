@@ -21,43 +21,42 @@
       <div class="mt-4 md:col-span-8">
         <!-- RPC Section -->
         <div class="flex flex-col space-y-4 items-center md:items-start">
-          <!-- <div class="max-w-xs w-full">
+          <div class="max-w-xs w-full">
             <div class="rounded-full p-1 bg-slate-200 dark:bg-zinc-700">
               <div class="relative z-0 rounded-full">
                 <button
                   class="rounded-full px-4 py-2 w-1/2 font-medium dark:text-white transition whitespace-nowrap"
+                  :class="{
+                    'text-white duration-500': selectedNetwork === 'ip',
+                    'text-slate-800': selectedNetwork !== 'ip',
+                  }"
+                  @click="selectIp"
+                >
+                  IP Address
+                </button>
+                <button
+                  class="rounded-full px-4 py-2 w-1/2 font-medium dark:text-white transition"
                   :class="{
                     'text-white duration-500': selectedNetwork === 'local',
                     'text-slate-800': selectedNetwork !== 'local',
                   }"
                   @click="selectLocal"
                 >
-                  Local Network
-                </button>
-                <button
-                  class="rounded-full px-4 py-2 w-1/2 font-medium dark:text-white transition"
-                  :class="{
-                    'text-white duration-500': selectedNetwork === 'tor',
-                    'text-slate-800': selectedNetwork !== 'tor',
-                  }"
-                  @click="selectTor"
-                >
-                  SSL
+                  Local Domain
                 </button>
                 <span
                   class="transform transition duration-500 ease-in-out absolute top-0 left-0 h-10 w-1/2 bg-umbrel rounded-full shadow-md"
                   :class="{
-                    'translate-x-full': selectedNetwork === 'tor',
+                    'translate-x-full': selectedNetwork === 'local',
                   }"
                   style="z-index: -1"
                 ></span>
               </div>
             </div>
-          </div> -->
+          </div>
           <div class="w-full">
             <label
               class="mb-1 d-block text-sm font-bold uppercase dark:text-slate-300"
-              @click="selectTor"
               >Address</label
             >
             <div v-if="connectionInfo">
@@ -138,12 +137,12 @@ import InputCopy from "@/components/Utility/InputCopy";
 export default {
   data() {
     return {
-      selectedNetwork: "local",
+      selectedNetwork: "ip",
     };
   },
   methods: {
-    selectTor: function() {
-      this.selectedNetwork = "tor";
+    selectIp: function() {
+      this.selectedNetwork = "ip";
     },
     selectLocal: function() {
       this.selectedNetwork = "local";
@@ -158,7 +157,7 @@ export default {
         if (this.selectedNetwork === "local") {
           return state.electrs.connectionInfo.local;
         } else {
-          return state.electrs.connectionInfo.tor;
+          return state.electrs.connectionInfo.ip;
         }
       },
     }),

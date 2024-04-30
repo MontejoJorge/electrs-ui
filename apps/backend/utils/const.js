@@ -3,10 +3,9 @@ module.exports = {
   REQUEST_CORRELATION_NAMESPACE_KEY: "umbrel-electrs-request",
   REQUEST_CORRELATION_ID_KEY: "reqId",
 
-  ELECTRUM_HIDDEN_SERVICE:
-    process.env.ELECTRUM_HIDDEN_SERVICE || "/var/lib/tor/electrum/hostname",
+  ELECTRUM_IP_ADDRESS: process.env.ELECTRUM_IP_ADDRESS,
 
-  ELECTRUM_LOCAL_SERVICE: process.env.ELECTRUM_LOCAL_SERVICE || "umbrel.local",
+  ELECTRUM_LOCAL_DOMAIN: process.env.ELECTRUM_LOCAL_DOMAIN,
 
   ELECTRUM_PORT: process.env.ELECTRUM_PORT || 50001,
 };

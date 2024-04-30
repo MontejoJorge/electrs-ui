@@ -5,17 +5,20 @@ async function getElectrumConnectionDetails() {
   try {
     const port = constants.ELECTRUM_PORT;
 
-    const torAddress = constants.ELECTRUM_HIDDEN_SERVICE;
-    const torConnectionString = `${torAddress}:${port}:t`;
+    const ipAddress = constants.ELECTRUM_IP_ADDRESS;
+    const ipConnectionString = `${ipAddress}:${port}:t`;
 
-    const localAddress = constants.ELECTRUM_LOCAL_SERVICE;
+    const localAddress = constants.ELECTRUM_LOCAL_DOMAIN;
     const localConnectionString = `${localAddress}:${port}:t`;
 
+    console.log("Electrum IP Address: ", ipAddress);
+      console.log("Electrum Local Address: ", localAddress);
+
     return {
-      tor: {
-        address: torAddress,
+      ip: {
+        address: ipAddress,
         port,
-        connectionString: torConnectionString,
+        connectionString: ipConnectionString,
       },
       local: {
         address: localAddress,
